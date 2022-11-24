@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário Javascript validations</title>
+    <link rel="stylesheet" href="./css/estilo.css">
+</head>
+
+<body>
+
+    <div id="container">
+        <div class="formulario">
+            <form method="post">
+
+                <!-- inicio cadastro de dados pessoais -->
+                <fieldset>
+                    <legend>Dados De Contato</legend>
+
+                    <div class="input-formulario">
+                        <label for="nomeCompleto">Nome Completo:</label>
+                        <input type="text" id="nomeCompleto" name="nomeCompleto" maxlength="120">
+                    </div>
+                    <div class="input-formulario">
+                        <label for="email">Email:</label>
+                        <input type="text" id="email" name="email">
+                    </div>
+                    <div class="input-formulario">
+                        <label for="telefone">Telefone:</label>
+                        <input type="tel" id="telefone" name="telefone" onkeyup="handleMascaraTelefone(event)"
+                            maxlength="15">
+                    </div>
+                    <div class="input-formulario">
+                        <label for="nascimento">Data Nascimento:</label>
+                        <input type="text" id="nascimento" name="nascimento" maxlength="10"
+                            onkeypress="mascaraData(this)">
+                    </div>
+                    <div class="input-formulario">
+                        <label for="documento">Documento:</label>
+                        <input type="text" id="documento" name="documento" maxlength="11">
+                    </div>
+                </fieldset>
+                <!-- fim cadastro de dados pessoais -->
+
+                <!-- inicio cadastro endereco -->
+                <fieldset>
+                    <legend>Dados De Endereço</legend>
+
+                    <div class="input-formulario">
+                        <label for="cep">Cep:</label>
+                        <input type="text" id="cep" name="cep" maxlength="8">
+                    </div>
+                    <div class="input-formulario">
+                        <label for="rua">Rua:</label>
+                        <input type="text" id="rua" name="rua">
+                    </div>
+                    <div class="input-formulario">
+                        <label for="bairro">Bairro:</label>
+                        <input type="text" id="bairro" name="bairro">
+                    </div>
+                    <div class="input-formulario">
+                        <label for="cidade">Cidade:</label>
+                        <input type="text" id="cidade" name="cidade">
+                    </div>
+                    <div class="input-formulario">
+                        <label for="estado">Estado:</label>
+                        <input type="text" id="estado" name="estado">
+                    </div>
+                </fieldset>
+                <!-- fim cadastro endereco -->
+
+                <button name="cadastrar-dados">Cadastrar Dados</button>
+            </form>
+        </div>
+    </div>
+    <script src="./js/validations.js"></script>
+</body>
+
+</html>
