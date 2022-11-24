@@ -13,26 +13,26 @@ const campoBairro = document.querySelector('[name="bairro"]');
 const campoCidade = document.querySelector('[name="cidade"]');
 const campoEstado = document.querySelector('[name="estado"]');
 
-campoNascimento.addEventListener('blur',(e) => {
-	
+campoNascimento.addEventListener('blur', (e) => {
+
 	let dataNascimento = e.target.value;
 
-	if(dataNascimento.length <= 0) return;
+	if (dataNascimento.length <= 0) return;
 
-	const dataFormatada =  dataNascimento.replace(/\D/g, "");
+	const dataFormatada = dataNascimento.replace(/\D/g, "");
 
-	if(aceitaApenasNumeros(dataFormatada) === false){
+	if (aceitaApenasNumeros(dataFormatada) === false) {
 		return alert('data inválida');
 	}
 });
 
 campoNomeCompleto.addEventListener('blur', (e) => {
-	
+
 	let nomeCompleto = e.target.value;
 
-	if(nomeCompleto.length <= 0) return;
+	if (nomeCompleto.length <= 0) return;
 
-	if(validarNumerosECaracteresEspeciais(nomeCompleto) === false){
+	if (validarNumerosECaracteresEspeciais(nomeCompleto) === false) {
 		return alert('informe apenas letras no campo Nome')
 	}
 });
@@ -41,7 +41,7 @@ campoEmail.addEventListener('blur', (e) => {
 
 	let email = e.target.value;
 
-	if(email.length <= 0) return;
+	if (email.length <= 0) return;
 
 	if (validarEmail(email) === false) {
 		return alert('informe um email válido')
@@ -52,7 +52,7 @@ campoCep.addEventListener('blur', (e) => {
 
 	let cep = e.target.value;
 
-	if(cep.length <= 0) return;
+	if (cep.length <= 0) return;
 
 	if (cep.length !== 8) {
 		return alert("informe um cep válido");
@@ -72,10 +72,10 @@ campoDocumento.addEventListener('blur', (e) => {
 
 	let cpf = e.target.value;
 
-	if(cpf.length <= 0) return;
+	if (cpf.length <= 0) return;
 
 	if (validarCPF(cpf) === false) {
-		alert('cpf falso')
+		alert('informe um cpf valido')
 	}
 });
 
@@ -145,91 +145,105 @@ function validarNumerosECaracteresEspeciais(texto) {
 	return regexCaracteresENumeros.test(texto);
 }
 
-function aceitaApenasNumeros(texto){
+function aceitaApenasNumeros(texto) {
 	const numeros = /^([0-9]+)$/;
 	return numeros.test(texto);
 }
 
-const handleMascaraTelefone = (event) =>{
+const handleMascaraCpf = (event) => {
 	let input = event.target;
-	input.value = phoneMask(input.value);
+	input.value = MascaraCpf(input.value)
 }
 
-const phoneMask = (value) => {
-	if(!value) return "";
-	value = value.replace(/\D/g,'');
-	value = value.replace(/(\d{2})(\d)/,"($1) $2");
-	value = value.replace(/(\d)(\d{4})$/,"$1-$2");
+const MascaraCpf = (value) => {
+	if (!value) return "";
+	value = value.replace(/\D/g, "")
+	value = value.replace(/(\d{3})(\d)/, "$1.$2")
+	value = value.replace(/(\d{3})(\d)/, "$1.$2")
+	value = value.replace(/(\d{3})(\d{1,2})$/, "$1-$2")
+	return value;
+}
+
+const handleMascaraTelefone = (event) => {
+	let input = event.target;
+	input.value = MascaraTelefone(input.value);
+}
+
+const MascaraTelefone = (value) => {
+	if (!value) return "";
+	value = value.replace(/\D/g, '');
+	value = value.replace(/(\d{2})(\d)/, "($1) $2");
+	value = value.replace(/(\d)(\d{4})$/, "$1-$2");
 	return value
 }
 
 function mascaraData(val) {
 	var pass = val.value;
 	var expr = /[0123456789]/;
-  
+
 	for (i = 0; i < pass.length; i++) {
-	  // charAt -> retorna o caractere posicionado no índice especificado
-	  var lchar = val.value.charAt(i);
-	  var nchar = val.value.charAt(i + 1);
-  
-	  if (i == 0) {
-		// search -> retorna um valor inteiro, indicando a posição do inicio da primeira
-		// ocorrência de expReg dentro de instStr. Se nenhuma ocorrencia for encontrada o método retornara -1
-		// instStr.search(expReg);
-		if ((lchar.search(expr) != 0) || (lchar > 3)) {
-		  val.value = "";
+		// charAt -> retorna o caractere posicionado no índice especificado
+		var lchar = val.value.charAt(i);
+		var nchar = val.value.charAt(i + 1);
+
+		if (i == 0) {
+			// search -> retorna um valor inteiro, indicando a posição do inicio da primeira
+			// ocorrência de expReg dentro de instStr. Se nenhuma ocorrencia for encontrada o método retornara -1
+			// instStr.search(expReg);
+			if ((lchar.search(expr) != 0) || (lchar > 3)) {
+				val.value = "";
+			}
+
+		} else if (i == 1) {
+
+			if (lchar.search(expr) != 0) {
+				// substring(indice1,indice2)
+				// indice1, indice2 -> será usado para delimitar a string
+				var tst1 = val.value.substring(0, (i));
+				val.value = tst1;
+				continue;
+			}
+
+			if ((nchar != '/') && (nchar != '')) {
+				var tst1 = val.value.substring(0, (i) + 1);
+
+				if (nchar.search(expr) != 0)
+					var tst2 = val.value.substring(i + 2, pass.length);
+				else
+					var tst2 = val.value.substring(i + 1, pass.length);
+
+				val.value = tst1 + '/' + tst2;
+			}
+
+		} else if (i == 4) {
+
+			if (lchar.search(expr) != 0) {
+				var tst1 = val.value.substring(0, (i));
+				val.value = tst1;
+				continue;
+			}
+
+			if ((nchar != '/') && (nchar != '')) {
+				var tst1 = val.value.substring(0, (i) + 1);
+
+				if (nchar.search(expr) != 0)
+					var tst2 = val.value.substring(i + 2, pass.length);
+				else
+					var tst2 = val.value.substring(i + 1, pass.length);
+
+				val.value = tst1 + '/' + tst2;
+			}
 		}
-  
-	  } else if (i == 1) {
-  
-		if (lchar.search(expr) != 0) {
-		  // substring(indice1,indice2)
-		  // indice1, indice2 -> será usado para delimitar a string
-		  var tst1 = val.value.substring(0, (i));
-		  val.value = tst1;
-		  continue;
+
+		if (i >= 6) {
+			if (lchar.search(expr) != 0) {
+				var tst1 = val.value.substring(0, (i));
+				val.value = tst1;
+			}
 		}
-  
-		if ((nchar != '/') && (nchar != '')) {
-		  var tst1 = val.value.substring(0, (i) + 1);
-  
-		  if (nchar.search(expr) != 0)
-			var tst2 = val.value.substring(i + 2, pass.length);
-		  else
-			var tst2 = val.value.substring(i + 1, pass.length);
-  
-		  val.value = tst1 + '/' + tst2;
-		}
-  
-	  } else if (i == 4) {
-  
-		if (lchar.search(expr) != 0) {
-		  var tst1 = val.value.substring(0, (i));
-		  val.value = tst1;
-		  continue;
-		}
-  
-		if ((nchar != '/') && (nchar != '')) {
-		  var tst1 = val.value.substring(0, (i) + 1);
-  
-		  if (nchar.search(expr) != 0)
-			var tst2 = val.value.substring(i + 2, pass.length);
-		  else
-			var tst2 = val.value.substring(i + 1, pass.length);
-  
-		  val.value = tst1 + '/' + tst2;
-		}
-	  }
-  
-	  if (i >= 6) {
-		if (lchar.search(expr) != 0) {
-		  var tst1 = val.value.substring(0, (i));
-		  val.value = tst1;
-		}
-	  }
 	}
-  
+
 	if (pass.length > 10)
-	  val.value = val.value.substring(0, 10);
+		val.value = val.value.substring(0, 10);
 	return true;
-  }
+}

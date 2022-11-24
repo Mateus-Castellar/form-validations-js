@@ -29,17 +29,15 @@
                     </div>
                     <div class="input-formulario">
                         <label for="telefone">Telefone:</label>
-                        <input type="tel" id="telefone" name="telefone" onkeyup="handleMascaraTelefone(event)"
-                            maxlength="15">
+                        <input type="tel" id="telefone" name="telefone" onkeyup="handleMascaraTelefone(event)" maxlength="15">
                     </div>
                     <div class="input-formulario">
                         <label for="nascimento">Data Nascimento:</label>
-                        <input type="text" id="nascimento" name="nascimento" maxlength="10"
-                            onkeypress="mascaraData(this)">
+                        <input type="text" id="nascimento" name="nascimento" maxlength="10" onkeypress="mascaraData(this)">
                     </div>
                     <div class="input-formulario">
                         <label for="documento">Documento:</label>
-                        <input type="text" id="documento" name="documento" maxlength="11">
+                        <input type="text" id="documento" name="documento" maxlength="14" onkeyup="handleMascaraCpf(event)">
                     </div>
                 </fieldset>
                 <!-- fim cadastro de dados pessoais -->
@@ -71,7 +69,7 @@
                 </fieldset>
                 <!-- fim cadastro endereco -->
 
-                <button name="cadastrar-dados">Cadastrar Dados</button>
+                <button type="button" name="cadastrar-dados">Cadastrar Dados</button>
             </form>
         </div>
     </div>
