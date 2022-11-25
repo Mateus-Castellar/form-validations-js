@@ -6,7 +6,6 @@ const campoEmail = document.querySelector('[name="email"]');
 const campoTelefone = document.querySelector('[name="telefone"]');
 const campoNascimento = document.querySelector('[name="nascimento"]');
 const campoDocumento = document.querySelector('[name="documento"]');
-
 const campoCep = document.querySelector('[name="cep"]');
 const campoRua = document.querySelector('[name="rua"]');
 const campoBairro = document.querySelector('[name="bairro"]');
@@ -131,7 +130,7 @@ function validarCPF(cpf) {
 };
 
 function validarEmail(email) {
-	const regexEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i;
+	const regexEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
 	return regexEmail.test(email);
 }
 
@@ -141,7 +140,7 @@ function validarCaracteresEspeciais(texto) {
 }
 
 function validarNumerosECaracteresEspeciais(texto) {
-	const regexCaracteresENumeros = /^([a-zA-Z .&'-]+)$/;;
+	const regexCaracteresENumeros = /^([a-zA-Z .&'-]+)$/;
 	return regexCaracteresENumeros.test(texto);
 }
 
